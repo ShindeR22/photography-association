@@ -9,16 +9,21 @@ export const photos = [
 ];
 
 export const team = [
-  "विक्रम साळुंखे",
-  "अनघा देशमुख",
-  "समीर पाटील",
-  "मृणालिनी जोशी",
-  "अमोल कुलकर्णी",
-  "नेहा शिंदे",
-  "रोहन कदम",
-  "सई आपटे",
-  "प्रवीण मोरे",
-  "काव्या नायर",
+  { name: "योगेश कावळी (योगी)", role: "अध्यक्ष", photo: "/team/yogesh-kawli.webp" },
+  { name: "शिवा बायगुल", role: "संपादक", photo: "/team/shiva-baygul.webp" },
+  { name: "अशपाक शेख", role: "उपाध्यक्ष", photo: "/team/ashpak-shaikh.webp" },
+  { name: "अनंत पिसे", role: "सचिव", photo: "/team/anant-pise.webp" },
+  { name: "भूषण शाह", role: "खजिनदार", photo: "/team/bhushan-shah.webp" },
+  { name: "नेतन हिवाळे", role: "सह सचिव", photo: "/team/netan-hivale.webp" },
+  { name: "विजय जाधव", role: "सह खजिनदार", photo: "/team/vijay-jadhav.webp" },
+  { name: "अमोल मानापाटील", role: "कार्याध्यक्ष", photo: "/team/amol-manapatil.webp" },
+  { name: "सुनीत कडवी", role: "सह कार्याध्यक्ष", photo: "/team/sunit-kadvi.webp" },
+  { name: "सचिन बीजापूर", role: "विद्यापीठ प्रतिनिधी", photo: "/team/sachin-bijapur.webp" },
+  { name: "प्रसाद गायकवाड", role: "सदस्य", photo: "/team/prasad-gaikwad.webp" },
+  { name: "तुषार शिंदे", role: "प्रसिद्धी प्रमुख", photo: "/team/tushar-shinde.webp" },
+  { name: "जगन्नाथ भुसरे", role: "संस्थापक सदस्य", photo: "/team/jagannath-bhusare.webp" },
+  { name: "महेंद्र बेंद्रे", role: "सल्लागार सदस्य", photo: "/team/mahendra-bendre.webp" },
+  { name: "उमा भाटकर", role: "महिला सदस्य", photo: "/team/uma-bhatkar.webp" },
 ];
 
 export const workshops = [

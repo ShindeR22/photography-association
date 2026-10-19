@@ -153,11 +153,11 @@ export function TeamSection() {
           text="छायाचित्रण कलेला समर्पित मार्गदर्शक आणि कार्यतत्पर पदाधिकारी."
         />
         <div className="team-grid">
-          {team.map((name, index) => (
+          {team.map(({ name, role, photo }, index) => (
             <article className="member-card" key={name}>
               <div className="member-photo-wrap">
                 <Photo
-                  src={photos[(index % 5) + 2]}
+                  src={photo}
                   alt={`${t(name)}, ${t("छायाचित्रकार")}`}
                 />
                 <span className="member-index">
@@ -167,7 +167,7 @@ export function TeamSection() {
               <div className="member-info">
                 <div>
                   <h3>{t(name)}</h3>
-                  <p>{t(memberRole(index))}</p>
+                  <p>{t(role)}</p>
                 </div>
                 <ArrowRight size={15} />
               </div>
@@ -177,11 +177,6 @@ export function TeamSection() {
       </div>
     </section>
   );
-}
-
-function memberRole(index: number) {
-  const roles = ["अध्यक्ष", "उपाध्यक्ष", "सचिव"];
-  return roles[index] ?? "कार्यकारी सदस्य";
 }
 
 export function WorkshopsSection() {
