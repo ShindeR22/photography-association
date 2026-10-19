@@ -103,9 +103,9 @@ export function AboutSection() {
     <section className="section about" id="about">
       <div className="container">
         <SectionTitle
-          eyebrow="आमची ओळख आणि ध्येय"
+          eyebrow="छायाचित्रकारांसोबत १५ वर्षांची वाटचाल"
           title="आमच्याविषयी"
-          text="छायाचित्रण ही केवळ प्रतिमा नाही—ती क्षण, संस्कृती आणि माणसांना जोडणारी भाषा आहे."
+          text="छायाचित्रकारांसाठी खास उभी राहिलेली आमची संघटना गेली १५ वर्षे त्यांच्या हक्कांसाठी, कौशल्यविकासासाठी आणि कलेला योग्य व्यासपीठ मिळवून देण्यासाठी कार्यरत आहे."
         />
         <div className="about-grid">
           <div className="about-visual">
@@ -115,7 +115,7 @@ export function AboutSection() {
                 <Check size={17} />
               </span>
               <div>
-                <strong>{t("कौशल्याला मान, कलेला व्यासपीठ")}</strong>
+                <strong>{t("१५ वर्षे छायाचित्रकारांसाठी")}</strong>
                 <small>{t("एकत्र शिकू · एकत्र घडू")}</small>
               </div>
               <span className="note-seal">
