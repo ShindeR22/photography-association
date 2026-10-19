@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Camera, Home, Info, Menu, Phone, Users, X, Images } from "lucide-react";
+import { useLanguage } from "./language";
 
 const links = [
   { href: "#home", label: "मुख्यपृष्ठ", Icon: Home },
@@ -14,6 +15,7 @@ const links = [
 
 export function MobileNavigation() {
   const [isOpen, setIsOpen] = useState(false);
+  const { t } = useLanguage();
 
   function closeMenu() {
     setIsOpen(false);
@@ -22,13 +24,14 @@ export function MobileNavigation() {
   return (
     <>
       <button
-        className="mobile-menu"
+        className={`mobile-menu ${isOpen ? "is-open" : ""}`}
         type="button"
-        aria-label={isOpen ? "मेन्यू बंद करा" : "मेन्यू उघडा"}
+        aria-label={t(isOpen ? "मेन्यू बंद करा" : "मेन्यू उघडा")}
         aria-expanded={isOpen}
+        aria-controls="mobile-site-menu"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <Menu size={21} />
+        {isOpen ? <X size={20} /> : <Menu size={21} />}
       </button>
 
       {isOpen && (
@@ -36,42 +39,33 @@ export function MobileNavigation() {
           <button
             className="mobile-drawer-backdrop"
             type="button"
-            aria-label="मेन्यू बंद करा"
+            aria-label={t("मेन्यू बंद करा")}
             onClick={closeMenu}
           />
-          <aside className="mobile-drawer" aria-label="मुख्य मेन्यू">
+          <aside id="mobile-site-menu" className="mobile-drawer" aria-label={t("मुख्य मेन्यू")}>
             <div className="mobile-drawer-heading">
               <div>
                 <span className="brand-mark"><Camera size={18} /></span>
-                <strong>IPPA मेन्यू</strong>
+                <strong>{t("असोसिएशन मेन्यू")}</strong>
               </div>
-              <button type="button" aria-label="मेन्यू बंद करा" onClick={closeMenu}>
+              <button type="button" aria-label={t("मेन्यू बंद करा")} onClick={closeMenu}>
                 <X size={20} />
               </button>
             </div>
             <nav>
               {links.map(({ href, label, Icon }) => (
                 <a href={href} key={href} onClick={closeMenu}>
-                  <Icon size={19} /> {label}
+                  <Icon size={19} /> {t(label)}
                 </a>
               ))}
               <a className="drawer-join" href="#membership" onClick={closeMenu}>
-                सभासद नोंदणी <span>→</span>
+                {t("सभासद नोंदणी")} <span>→</span>
               </a>
             </nav>
-            <p>महाराष्ट्र राज्य शाखा<br />व्यावसायिक छायाचित्रण कला संवर्धन</p>
+            <p>{t("महाराष्ट्र राज्य शाखा")}<br />{t("व्यावसायिक छायाचित्रण कला संवर्धन")}</p>
           </aside>
         </div>
       )}
-
-      <nav className="mobile-bottom-nav" aria-label="मोबाइल नेव्हिगेशन">
-        {links.slice(0, 5).map(({ href, label, Icon }) => (
-          <a href={href} key={href}>
-            <Icon size={17} />
-            <span>{label}</span>
-          </a>
-        ))}
-      </nav>
     </>
   );
 }

@@ -1,3 +1,5 @@
+"use client";
+
 import {
   ArrowDown,
   ArrowRight,
@@ -8,9 +10,11 @@ import {
   Users,
 } from "lucide-react";
 import { photos, team, workshops } from "./data";
+import { useLanguage } from "./language";
 import { ButtonLink, Photo, SectionTitle } from "./ui";
 
 export function HeroSection() {
+  const { t } = useLanguage();
   return (
     <section className="hero" id="home">
       <Photo
@@ -21,19 +25,18 @@ export function HeroSection() {
       <div className="hero-wash" />
       <div className="hero-content">
         <span className="eyebrow">
-          <Sparkles size={13} /> छायाचित्रकारांची राष्ट्रीय संघटना
+          <Sparkles size={13} /> {t("छायाचित्रकारांची राष्ट्रीय संघटना")}
         </span>
         <h1>
-          एकजूट छायाचित्रकारांची,
+          {t("एकजूट छायाचित्रकारांची,")}
           <br />
-          <em>उंची कलेची.</em>
+          <em>{t("उंची कलेची.")}</em>
         </h1>
         <p className="hero-mantra">
-          शिका <i>·</i> जोडले जा <i>·</i> प्रगती करा
+          {t("शिका")} <i>·</i> {t("जोडले जा")} <i>·</i> {t("प्रगती करा")}
         </p>
         <p className="hero-copy">
-          भारतातील छायाचित्रकारांना एकत्र आणणारे, अनुभव वाटून घेणारे आणि
-          प्रत्येक फ्रेममधून नवी दृष्टी घडवणारे व्यासपीठ.
+          {t("भारतातील छायाचित्रकारांना एकत्र आणणारे, अनुभव वाटून घेणारे आणि प्रत्येक फ्रेममधून नवी दृष्टी घडवणारे व्यासपीठ.")}
         </p>
         <div className="hero-actions">
           <ButtonLink href="#about">संघटनेविषयी</ButtonLink>
@@ -43,13 +46,13 @@ export function HeroSection() {
         </div>
       </div>
       <a className="scroll-cue" href="#about">
-        <ArrowDown size={15} /> पुढे पाहा
+          <ArrowDown size={15} /> {t("पुढे पाहा")}
       </a>
       <div className="hero-stats">
-        <Stat value="५,०००" suffix="+" label="सक्रिय छायाचित्रकार" />
-        <Stat value="२८" label="राज्ये व केंद्रशासित प्रदेश" />
-        <Stat value="२५०" suffix="+" label="वार्षिक कार्यशाळा" />
-        <Stat value="१५" suffix="+" label="आंतरराष्ट्रीय पुरस्कार" />
+        <Stat value={t("५,०००")} suffix="+" label="सक्रिय छायाचित्रकार" />
+        <Stat value={t("२८")} label="राज्ये व केंद्रशासित प्रदेश" />
+        <Stat value={t("२५०")} suffix="+" label="वार्षिक कार्यशाळा" />
+        <Stat value={t("१५")} suffix="+" label="आंतरराष्ट्रीय पुरस्कार" />
       </div>
     </section>
   );
@@ -64,13 +67,14 @@ function Stat({
   suffix?: string;
   label: string;
 }) {
+  const { t } = useLanguage();
   return (
     <div>
       <strong>
         {value}
         {suffix && <span>{suffix}</span>}
       </strong>
-      <small>{label}</small>
+      <small>{t(label)}</small>
     </div>
   );
 }
@@ -94,6 +98,7 @@ const pillars = [
 ];
 
 export function AboutSection() {
+  const { t } = useLanguage();
   return (
     <section className="section about" id="about">
       <div className="container">
@@ -110,8 +115,8 @@ export function AboutSection() {
                 <Check size={17} />
               </span>
               <div>
-                <strong>कौशल्याला मान, कलेला व्यासपीठ</strong>
-                <small>एकत्र शिकू · एकत्र घडू</small>
+                <strong>{t("कौशल्याला मान, कलेला व्यासपीठ")}</strong>
+                <small>{t("एकत्र शिकू · एकत्र घडू")}</small>
               </div>
               <span className="note-seal">
                 IPPA
@@ -122,10 +127,10 @@ export function AboutSection() {
           <div className="pillars">
             {pillars.map((pillar) => (
               <article className="pillar" key={pillar.number}>
-                <span className="pillar-number">{pillar.number}</span>
+                <span className="pillar-number">{t(pillar.number)}</span>
                 <div>
-                  <h3>{pillar.title}</h3>
-                  <p>{pillar.body}</p>
+                  <h3>{t(pillar.title)}</h3>
+                  <p>{t(pillar.body)}</p>
                 </div>
                 <ArrowRight className="pillar-arrow" size={17} />
               </article>
@@ -138,6 +143,7 @@ export function AboutSection() {
 }
 
 export function TeamSection() {
+  const { t } = useLanguage();
   return (
     <section className="section team-section" id="team">
       <div className="container">
@@ -152,16 +158,16 @@ export function TeamSection() {
               <div className="member-photo-wrap">
                 <Photo
                   src={photos[(index % 5) + 2]}
-                  alt={`${name}, IPPA छायाचित्रकार`}
+                  alt={`${t(name)}, ${t("छायाचित्रकार")}`}
                 />
                 <span className="member-index">
-                  {String(index + 1).padStart(2, "0")}
+                  {t(String(index + 1).padStart(2, "0"))}
                 </span>
               </div>
               <div className="member-info">
                 <div>
-                  <h3>{name}</h3>
-                  <p>{memberRole(index)}</p>
+                  <h3>{t(name)}</h3>
+                  <p>{t(memberRole(index))}</p>
                 </div>
                 <ArrowRight size={15} />
               </div>
@@ -179,18 +185,19 @@ function memberRole(index: number) {
 }
 
 export function WorkshopsSection() {
+  const { t } = useLanguage();
   return (
     <section className="section workshops" id="workshops">
       <div className="container">
         <div className="workshop-banner">
           <div>
-            <span className="eyebrow">शिका · प्रयोग करा · घडवा</span>
+            <span className="eyebrow">{t("शिका · प्रयोग करा · घडवा")}</span>
             <h2>
-              कॅमेऱ्याच्या मागची
+              {t("कॅमेऱ्याच्या मागची")}
               <br />
-              <em>नवी दृष्टी.</em>
+              <em>{t("नवी दृष्टी.")}</em>
             </h2>
-            <p>मैदानी अनुभव, उत्तम मार्गदर्शन आणि तुमच्या कलेसाठी नवी प्रेरणा.</p>
+            <p>{t("मैदानी अनुभव, उत्तम मार्गदर्शन आणि तुमच्या कलेसाठी नवी प्रेरणा.")}</p>
             <ButtonLink href="#contact">सर्व कार्यशाळा</ButtonLink>
           </div>
           <Photo src={photos[4]} alt="छायाचित्रण कार्यशाळेत सहभागी" />
@@ -198,11 +205,11 @@ export function WorkshopsSection() {
 
         <div className="workshop-heading">
           <div>
-            <span className="eyebrow">आगामी संधी</span>
-            <h2>शिका आणि घडवा</h2>
+            <span className="eyebrow">{t("आगामी संधी")}</span>
+            <h2>{t("शिका आणि घडवा")}</h2>
           </div>
           <a href="#contact" className="text-link">
-            कार्यशाळा पाहा <ArrowRight size={15} />
+            {t("कार्यशाळा पाहा")} <ArrowRight size={15} />
           </a>
         </div>
 
@@ -211,12 +218,12 @@ export function WorkshopsSection() {
             <article className="workshop-card" key={workshop.title}>
               <Photo src={workshop.image} alt={workshop.title} />
               <div className="workshop-meta">
-                <span>{workshop.type}</span>
-                <span>०{index + 1}</span>
+                <span>{t(workshop.type)}</span>
+                <span>{t(`०${index + 1}`)}</span>
               </div>
-              <h3>{workshop.title}</h3>
-              <p>{workshop.date}</p>
-              <a href="#contact" aria-label={`${workshop.title} साठी संपर्क करा`}>
+              <h3>{t(workshop.title)}</h3>
+              <p>{t(workshop.date)}</p>
+              <a href="#contact" aria-label={`${t(workshop.title)}: ${t("संपर्क")}`}>
                 <ArrowRight size={16} />
               </a>
             </article>
@@ -236,6 +243,7 @@ const galleryAlt = [
 ];
 
 export function GallerySection() {
+  const { t } = useLanguage();
   return (
     <section className="section gallery" id="gallery">
       <div className="container">
@@ -245,25 +253,25 @@ export function GallerySection() {
           text="आपल्या सभासदांच्या नजरेतून भारत—संस्कृती, माणसं आणि निसर्ग."
         />
         <div className="gallery-filters">
-          <span className="filter-active">सर्व छायाचित्रे</span>
-          <span>पोर्ट्रेट</span>
-          <span>संस्कृती</span>
-          <span>निसर्ग</span>
-          <span>कार्यशाळा</span>
+          <span className="filter-active">{t("सर्व छायाचित्रे")}</span>
+          <span>{t("पोर्ट्रेट")}</span>
+          <span>{t("संस्कृती")}</span>
+          <span>{t("निसर्ग")}</span>
+          <span>{t("कार्यशाळा")}</span>
         </div>
         <div className="gallery-grid">
           {photos.slice(2).map((photo, index) => (
             <Photo
               key={photo}
               src={photo}
-              alt={galleryAlt[index]}
+              alt={t(galleryAlt[index])}
               className={`gallery-photo gallery-photo-${index + 1}`}
             />
           ))}
         </div>
         <div className="gallery-caption">
-          <span>IPPA फोटो सलून · २०२५</span>
-          <span>०१ — ०५</span>
+          <span>{t("IPPA फोटो सलून")} · {t("२०२५")}</span>
+          <span>{t("०१ — ०५")}</span>
         </div>
       </div>
     </section>
@@ -277,6 +285,7 @@ const membershipBenefits = [
 ];
 
 export function MembershipSection() {
+  const { t } = useLanguage();
   return (
     <section className="membership" id="membership">
       <div className="container membership-grid">
@@ -285,25 +294,24 @@ export function MembershipSection() {
             src={photos[6]}
             alt="कॅमेरा हातात घेतलेली व्यावसायिक छायाचित्रकार"
           />
-          <span className="portrait-caption">दृष्टी तुमची. व्यासपीठ आमचं.</span>
+          <span className="portrait-caption">{t("दृष्टी तुमची. व्यासपीठ आमचं.")}</span>
         </div>
         <div className="membership-copy">
-          <span className="eyebrow">तुमची पुढची फ्रेम इथून सुरू</span>
+          <span className="eyebrow">{t("तुमची पुढची फ्रेम इथून सुरू")}</span>
           <h2>
-            छायाचित्रकारांच्या
+            {t("छायाचित्रकारांच्या")}
             <br />
-            परिवाराचा <em>भाग व्हा.</em>
+            {t("परिवाराचा")} <em>{t("भाग व्हा.")}</em>
           </h2>
           <p>
-            सहकार्य, सन्मान आणि सातत्याने शिकण्याची संधी—तुमच्या छायाचित्रण
-            प्रवासासाठी.
+            {t("सहकार्य, सन्मान आणि सातत्याने शिकण्याची संधी—तुमच्या छायाचित्रण प्रवासासाठी.")}
           </p>
           <div className="benefit-grid">
             {membershipBenefits.map(({ title, detail, Icon }) => (
               <div key={title}>
                 <Icon size={18} />
-                <strong>{title}</strong>
-                <small>{detail}</small>
+                <strong>{t(title)}</strong>
+                <small>{t(detail)}</small>
               </div>
             ))}
           </div>
