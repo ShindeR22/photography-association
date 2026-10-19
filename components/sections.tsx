@@ -1,0 +1,315 @@
+import {
+  ArrowDown,
+  ArrowRight,
+  Camera,
+  Check,
+  Quote,
+  Sparkles,
+  Users,
+} from "lucide-react";
+import { photos, team, workshops } from "./data";
+import { ButtonLink, Photo, SectionTitle } from "./ui";
+
+export function HeroSection() {
+  return (
+    <section className="hero" id="home">
+      <Photo
+        src={photos[0]}
+        alt="भारतीय विवाह सोहळ्याचे छायाचित्रण करणारा छायाचित्रकार"
+        className="hero-image"
+      />
+      <div className="hero-wash" />
+      <div className="hero-content">
+        <span className="eyebrow">
+          <Sparkles size={13} /> छायाचित्रकारांची राष्ट्रीय संघटना
+        </span>
+        <h1>
+          एकजूट छायाचित्रकारांची,
+          <br />
+          <em>उंची कलेची.</em>
+        </h1>
+        <p className="hero-mantra">
+          शिका <i>·</i> जोडले जा <i>·</i> प्रगती करा
+        </p>
+        <p className="hero-copy">
+          भारतातील छायाचित्रकारांना एकत्र आणणारे, अनुभव वाटून घेणारे आणि
+          प्रत्येक फ्रेममधून नवी दृष्टी घडवणारे व्यासपीठ.
+        </p>
+        <div className="hero-actions">
+          <ButtonLink href="#about">संघटनेविषयी</ButtonLink>
+          <ButtonLink href="#workshops" secondary>
+            कार्यशाळा पहा
+          </ButtonLink>
+        </div>
+      </div>
+      <a className="scroll-cue" href="#about">
+        <ArrowDown size={15} /> पुढे पाहा
+      </a>
+      <div className="hero-stats">
+        <Stat value="५,०००" suffix="+" label="सक्रिय छायाचित्रकार" />
+        <Stat value="२८" label="राज्ये व केंद्रशासित प्रदेश" />
+        <Stat value="२५०" suffix="+" label="वार्षिक कार्यशाळा" />
+        <Stat value="१५" suffix="+" label="आंतरराष्ट्रीय पुरस्कार" />
+      </div>
+    </section>
+  );
+}
+
+function Stat({
+  value,
+  suffix = "",
+  label,
+}: {
+  value: string;
+  suffix?: string;
+  label: string;
+}) {
+  return (
+    <div>
+      <strong>
+        {value}
+        {suffix && <span>{suffix}</span>}
+      </strong>
+      <small>{label}</small>
+    </div>
+  );
+}
+
+const pillars = [
+  {
+    number: "०१",
+    title: "व्यावसायिक हक्क आणि सन्मान",
+    body: "छायाचित्रकारांचे हक्क, योग्य मानधन आणि बौद्धिक संपदेबाबत जागरूकता.",
+  },
+  {
+    number: "०२",
+    title: "कौशल्य आणि ज्ञानाची देवाणघेवाण",
+    body: "अनुभवी मार्गदर्शकांसोबत प्रत्यक्ष प्रशिक्षण, संवाद आणि नवे तंत्रज्ञान.",
+  },
+  {
+    number: "०३",
+    title: "कलेला व्यापक व्यासपीठ",
+    body: "प्रदर्शने, फोटो सलून आणि राष्ट्रीय स्तरावर कलाकृतींना ओळख.",
+  },
+];
+
+export function AboutSection() {
+  return (
+    <section className="section about" id="about">
+      <div className="container">
+        <SectionTitle
+          eyebrow="आमची ओळख आणि ध्येय"
+          title="आमच्याविषयी"
+          text="छायाचित्रण ही केवळ प्रतिमा नाही—ती क्षण, संस्कृती आणि माणसांना जोडणारी भाषा आहे."
+        />
+        <div className="about-grid">
+          <div className="about-visual">
+            <Photo src={photos[1]} alt="छायाचित्रणासाठी आधुनिक उपकरणे" />
+            <div className="image-note">
+              <span className="note-icon">
+                <Check size={17} />
+              </span>
+              <div>
+                <strong>कौशल्याला मान, कलेला व्यासपीठ</strong>
+                <small>एकत्र शिकू · एकत्र घडू</small>
+              </div>
+              <span className="note-seal">
+                IPPA
+                <br />✳
+              </span>
+            </div>
+          </div>
+          <div className="pillars">
+            {pillars.map((pillar) => (
+              <article className="pillar" key={pillar.number}>
+                <span className="pillar-number">{pillar.number}</span>
+                <div>
+                  <h3>{pillar.title}</h3>
+                  <p>{pillar.body}</p>
+                </div>
+                <ArrowRight className="pillar-arrow" size={17} />
+              </article>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function TeamSection() {
+  return (
+    <section className="section team-section" id="team">
+      <div className="container">
+        <SectionTitle
+          eyebrow="संस्थेचे मार्गदर्शक"
+          title="आमची टीम"
+          text="छायाचित्रण कलेला समर्पित मार्गदर्शक आणि कार्यतत्पर पदाधिकारी."
+        />
+        <div className="team-grid">
+          {team.map((name, index) => (
+            <article className="member-card" key={name}>
+              <div className="member-photo-wrap">
+                <Photo
+                  src={photos[(index % 5) + 2]}
+                  alt={`${name}, IPPA छायाचित्रकार`}
+                />
+                <span className="member-index">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+              </div>
+              <div className="member-info">
+                <div>
+                  <h3>{name}</h3>
+                  <p>{memberRole(index)}</p>
+                </div>
+                <ArrowRight size={15} />
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function memberRole(index: number) {
+  const roles = ["अध्यक्ष", "उपाध्यक्ष", "सचिव"];
+  return roles[index] ?? "कार्यकारी सदस्य";
+}
+
+export function WorkshopsSection() {
+  return (
+    <section className="section workshops" id="workshops">
+      <div className="container">
+        <div className="workshop-banner">
+          <div>
+            <span className="eyebrow">शिका · प्रयोग करा · घडवा</span>
+            <h2>
+              कॅमेऱ्याच्या मागची
+              <br />
+              <em>नवी दृष्टी.</em>
+            </h2>
+            <p>मैदानी अनुभव, उत्तम मार्गदर्शन आणि तुमच्या कलेसाठी नवी प्रेरणा.</p>
+            <ButtonLink href="#contact">सर्व कार्यशाळा</ButtonLink>
+          </div>
+          <Photo src={photos[4]} alt="छायाचित्रण कार्यशाळेत सहभागी" />
+        </div>
+
+        <div className="workshop-heading">
+          <div>
+            <span className="eyebrow">आगामी संधी</span>
+            <h2>शिका आणि घडवा</h2>
+          </div>
+          <a href="#contact" className="text-link">
+            कार्यशाळा पाहा <ArrowRight size={15} />
+          </a>
+        </div>
+
+        <div className="workshop-grid">
+          {workshops.map((workshop, index) => (
+            <article className="workshop-card" key={workshop.title}>
+              <Photo src={workshop.image} alt={workshop.title} />
+              <div className="workshop-meta">
+                <span>{workshop.type}</span>
+                <span>०{index + 1}</span>
+              </div>
+              <h3>{workshop.title}</h3>
+              <p>{workshop.date}</p>
+              <a href="#contact" aria-label={`${workshop.title} साठी संपर्क करा`}>
+                <ArrowRight size={16} />
+              </a>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const galleryAlt = [
+  "भारतीय छायाचित्रकार",
+  "छायाचित्रण कार्यशाळा",
+  "स्टुडिओमध्ये प्रकाशयोजना",
+  "कॅमेरा प्रशिक्षण",
+  "भारतीय संस्कृतीचे क्षण",
+];
+
+export function GallerySection() {
+  return (
+    <section className="section gallery" id="gallery">
+      <div className="container">
+        <SectionTitle
+          eyebrow="फ्रेममध्ये जपलेले क्षण"
+          title="आमची छायाचित्रे"
+          text="आपल्या सभासदांच्या नजरेतून भारत—संस्कृती, माणसं आणि निसर्ग."
+        />
+        <div className="gallery-filters">
+          <span className="filter-active">सर्व छायाचित्रे</span>
+          <span>पोर्ट्रेट</span>
+          <span>संस्कृती</span>
+          <span>निसर्ग</span>
+          <span>कार्यशाळा</span>
+        </div>
+        <div className="gallery-grid">
+          {photos.slice(2).map((photo, index) => (
+            <Photo
+              key={photo}
+              src={photo}
+              alt={galleryAlt[index]}
+              className={`gallery-photo gallery-photo-${index + 1}`}
+            />
+          ))}
+        </div>
+        <div className="gallery-caption">
+          <span>IPPA फोटो सलून · २०२५</span>
+          <span>०१ — ०५</span>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const membershipBenefits = [
+  { title: "सक्रिय समुदाय", detail: "संपूर्ण भारतातील सहकारी", Icon: Users },
+  { title: "विशेष प्रशिक्षण", detail: "कार्यशाळा आणि मार्गदर्शन", Icon: Camera },
+  { title: "तुमच्या कलेला मंच", detail: "प्रदर्शन आणि फोटो सलून", Icon: Quote },
+];
+
+export function MembershipSection() {
+  return (
+    <section className="membership" id="membership">
+      <div className="container membership-grid">
+        <div className="membership-portrait">
+          <Photo
+            src={photos[6]}
+            alt="कॅमेरा हातात घेतलेली व्यावसायिक छायाचित्रकार"
+          />
+          <span className="portrait-caption">दृष्टी तुमची. व्यासपीठ आमचं.</span>
+        </div>
+        <div className="membership-copy">
+          <span className="eyebrow">तुमची पुढची फ्रेम इथून सुरू</span>
+          <h2>
+            छायाचित्रकारांच्या
+            <br />
+            परिवाराचा <em>भाग व्हा.</em>
+          </h2>
+          <p>
+            सहकार्य, सन्मान आणि सातत्याने शिकण्याची संधी—तुमच्या छायाचित्रण
+            प्रवासासाठी.
+          </p>
+          <div className="benefit-grid">
+            {membershipBenefits.map(({ title, detail, Icon }) => (
+              <div key={title}>
+                <Icon size={18} />
+                <strong>{title}</strong>
+                <small>{detail}</small>
+              </div>
+            ))}
+          </div>
+          <ButtonLink href="#contact">सभासदत्वासाठी संपर्क</ButtonLink>
+        </div>
+      </div>
+    </section>
+  );
+}
