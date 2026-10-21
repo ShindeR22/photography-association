@@ -695,6 +695,169 @@ textarea {
   font-size: 13px;
   line-height: 1.8;
 }
+.membership-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(31, 24, 17, 0.58);
+  backdrop-filter: blur(5px);
+}
+.membership-modal {
+  position: relative;
+  width: min(620px, 100%);
+  max-height: min(90vh, 800px);
+  overflow-y: auto;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--cream);
+  box-shadow: 0 24px 80px #1d160f45;
+}
+.membership-modal .contact-form {
+  border: 0;
+  padding: 32px;
+}
+.membership-form .form-heading {
+  padding-right: 38px;
+}
+.membership-options {
+  min-width: 0;
+  margin: 0 0 14px;
+  padding: 13px 14px 14px;
+  border: 1px solid #e8e0d5;
+  border-radius: 8px;
+}
+.membership-options legend {
+  padding: 0 5px;
+  color: #61564c;
+  font-size: 10px;
+}
+.membership-option-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px 16px;
+}
+.membership-option-list .membership-option {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 7px;
+  margin: 0;
+  color: var(--ink);
+  font-size: 11px;
+  cursor: pointer;
+}
+.membership-option input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+  margin: 0;
+  accent-color: var(--gold);
+}
+.membership-form-status {
+  margin: 0 0 12px;
+  color: var(--gold);
+  font-size: 12px;
+  line-height: 1.5;
+}
+.membership-success-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(31, 24, 17, 0.62);
+  backdrop-filter: blur(5px);
+}
+.membership-success-card {
+  position: relative;
+  width: min(460px, 100%);
+  padding: 38px 32px 30px;
+  border: 1px solid #d8c79f;
+  border-radius: 16px;
+  color: var(--ink);
+  background: var(--cream);
+  box-shadow: 0 24px 80px #1d160f45;
+  text-align: center;
+}
+.membership-success-mark {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  margin: 0 auto 16px;
+  border: 1px solid #d8c79f;
+  border-radius: 50%;
+  color: var(--gold);
+  background: #f8f2e7;
+}
+.membership-success-card h3 {
+  margin: 0 0 10px;
+  font-family: var(--serif);
+  font-size: 25px;
+  font-weight: 500;
+}
+.membership-success-card p {
+  margin: 8px 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.65;
+}
+.membership-id-box {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: 20px 0;
+  padding: 13px;
+  border: 1px dashed #c5a059;
+  border-radius: 9px;
+  background: #fbf7ee;
+}
+.membership-id-box small {
+  color: var(--muted);
+  font-size: 10px;
+}
+.membership-id-box strong {
+  color: var(--gold);
+  font-size: 18px;
+  letter-spacing: 0.06em;
+  overflow-wrap: anywhere;
+}
+.membership-success-card > .button {
+  min-width: 140px;
+  margin-top: 13px;
+}
+@media (max-width: 480px) {
+  .membership-success-card {
+    padding: 36px 22px 24px;
+  }
+}
+.membership-success-card .membership-modal-close {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+}
+.membership-form button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+.membership-modal-close {
+  position: absolute;
+  z-index: 1;
+  top: 14px;
+  right: 14px;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--ink);
+  background: var(--cream);
+  cursor: pointer;
+}
 .benefit-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
