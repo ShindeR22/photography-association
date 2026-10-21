@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { LanguageProvider } from "@/components/language";
+import { LanguageProvider } from "@/components/shared/language";
 import "./globals.css";
 
 export const metadata: Metadata = {

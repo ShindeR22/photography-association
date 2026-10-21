@@ -2,7 +2,7 @@
 
 import { ArrowRight } from "lucide-react";
 import type { ReactNode } from "react";
-import { useLanguage } from "./language";
+import { useLanguage } from "@/components/shared/language";
 
 type SectionTitleProps = {
   eyebrow: string;

@@ -1,16 +1,14 @@
-import {
-  AboutSection,
-  GallerySection,
-  HeroSection,
-  MembershipSection,
-  TeamSection,
-  WorkshopsSection,
-} from "@/components/sections";
+import { AboutSection } from "@/components/sections/about-section";
+import { GallerySection } from "@/components/sections/gallery-section";
+import { HeroSection } from "@/components/sections/hero-section";
+import { MembershipSection } from "@/components/sections/membership-section";
+import { TeamSection } from "@/components/sections/team-section";
+import { WorkshopsSection } from "@/components/sections/workshops-section";
 import {
   ContactSection,
   SiteFooter,
   SiteHeader,
-} from "@/components/site-chrome";
+} from "@/components/navigation/site-chrome";
 
 export default function Home() {
   return (

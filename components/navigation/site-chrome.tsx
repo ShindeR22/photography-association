@@ -2,8 +2,8 @@
 
 import { ArrowRight, Camera, Mail, MapPin, Phone } from "lucide-react";
 import Image from "next/image";
-import { LanguageToggle, useLanguage } from "./language";
-import { MobileNavigation } from "./mobile-navigation";
+import { LanguageToggle, useLanguage } from "@/components/shared/language";
+import { MobileNavigation } from "@/components/navigation/mobile-navigation";
 
 const navigation = [
   { href: "#about", label: "संघटना" },

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Camera, Home, Info, Menu, Phone, Users, X, Images } from "lucide-react";
-import { useLanguage } from "./language";
+import { useLanguage } from "@/components/shared/language";
 
 const links = [
   { href: "#home", label: "मुख्यपृष्ठ", Icon: Home },

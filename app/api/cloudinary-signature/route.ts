@@ -6,7 +6,10 @@ export async function POST(request: Request) {
   const apiSecret = process.env.CLOUDINARY_API_SECRET;
 
   if (!cloudName || !apiKey || !apiSecret) {
-    return Response.json({ message: "Cloudinary environment variables are not configured." }, { status: 503 });
+    return Response.json(
+      { message: "Cloudinary environment variables are not configured." },
+      { status: 503 },
+    );
   }
 
   let kind: unknown;
@@ -23,14 +26,19 @@ export async function POST(request: Request) {
   const timestamp = Math.floor(Date.now() / 1000);
   const folder = kind === "profile" ? "members/profile" : "members/documents";
   const type = kind === "document" ? "private" : undefined;
-  const signedParams: Record<string, string | number> = { folder, timestamp };
+  const signedParams: Record<string, string | number> = {
+    folder,
+    timestamp,
+  };
   if (type) signedParams.type = type;
 
   const toSign = Object.entries(signedParams)
     .sort(([a], [b]) => a.localeCompare(b))
     .map(([key, value]) => `${key}=${value}`)
     .join("&");
-  const signature = createHash("sha1").update(`${toSign}${apiSecret}`).digest("hex");
+  const signature = createHash("sha1")
+    .update(`${toSign}${apiSecret}`)
+    .digest("hex");
 
   return Response.json({ cloudName, apiKey, timestamp, folder, type, signature });
 }
