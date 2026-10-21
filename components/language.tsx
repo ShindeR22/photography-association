@@ -24,6 +24,7 @@ const english: Record<string, string> = {
   "सदस्य": "Member", "प्रसिद्धी प्रमुख": "Publicity Head", "संस्थापक सदस्य": "Founding Member", "सल्लागार सदस्य": "Advisory Member", "महिला सदस्य": "Women’s Representative",
   "शिका · प्रयोग करा · घडवा": "Learn · Experiment · Create", "कॅमेऱ्याच्या मागची": "Behind the Camera,", "नवी दृष्टी.": "A New Perspective.",
   "मैदानी अनुभव, उत्तम मार्गदर्शन आणि तुमच्या कलेसाठी नवी प्रेरणा.": "Field experience, expert guidance, and fresh inspiration for your craft.", "सर्व कार्यशाळा": "All Workshops", "आगामी संधी": "Upcoming Opportunities", "शिका आणि घडवा": "Learn and Create", "कार्यशाळा पाहा": "View Workshops",
+  "छायाचित्रण कलेला समर्पित मार्गदर्शक आणि कार्यतत्पर पदाधिकारी.": "Dedicated mentors and committed office bearers, united by the art of photography.",
   "प्रकाश आणि पोर्ट्रेटची भाषा": "The Language of Light and Portraiture", "पोर्ट्रेट फोटोग्राफी": "Portrait Photography", "कॅमेऱ्याच्या पलीकडचं कथाकथन": "Stories Beyond the Camera", "डॉक्युमेंटरी": "Documentary", "स्टुडिओ लाईटिंग मास्टरक्लास": "Studio Lighting Masterclass", "लाईटिंग": "Lighting",
   "छायाचित्रण कार्यशाळेत सहभागी": "Participants at a photography workshop", "फ्रेममध्ये जपलेले क्षण": "Moments Preserved in a Frame", "आमची छायाचित्रे": "Our Photographs", "आपल्या सभासदांच्या नजरेतून भारत—संस्कृती, माणसं आणि निसर्ग.": "India through our members’ eyes—culture, people, and nature.",
   "सर्व छायाचित्रे": "All Photos", "पोर्ट्रेट": "Portraits", "संस्कृती": "Culture", "निसर्ग": "Nature", "IPPA फोटो सलून": "PCPA Photo Salon",
