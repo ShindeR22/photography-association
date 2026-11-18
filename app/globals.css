@@ -935,6 +935,13 @@ textarea {
   font-size: 12px;
   line-height: 1.5;
 }
+.membership-form-error {
+  padding: 10px 12px;
+  border: 1px solid #e6b7af;
+  border-radius: 7px;
+  color: #8d2f25;
+  background: #fff1ee;
+}
 .membership-success-overlay {
   position: fixed;
   inset: 0;

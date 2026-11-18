@@ -124,7 +124,7 @@ export function MembershipSection() {
 
     try {
       const response = await fetch(
-        process.env.NEXT_PUBLIC_MEMBERS_API_URL || "https://photography-admin-kohl.vercel.app/api/members",
+        process.env.NEXT_PUBLIC_MEMBERS_API_URL || "https://photography-admin-kohl.vercel.app/api/public/members",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -133,7 +133,8 @@ export function MembershipSection() {
       );
       const result = await response.json().catch(() => null);
       if (!response.ok) {
-        throw new Error(result?.message || `Request failed (${response.status})`);
+        const apiError = typeof result?.error === "string" ? result.error : result?.error?.message;
+        throw new Error(apiError || result?.message || `Request failed (${response.status})`);
       }
       const memberNumber =
         result?.memberNumber
@@ -270,7 +271,7 @@ export function MembershipSection() {
                 {uploadingField === "udyamAadhaarPhotoUrl" && <small>{t("अपलोड होत आहे…")}</small>}
                 {uploadErrors.udyamAadhaarPhotoUrl && <small className="upload-error">{uploadErrors.udyamAadhaarPhotoUrl}</small>}
               </label>
-              {submitMessage && <p className="membership-form-status" role="status">{submitMessage}</p>}
+              {submitMessage && <p className="membership-form-status membership-form-error" role="alert">{submitMessage}</p>}
               <button className="button" type="submit" disabled={isSubmitting}>{isSubmitting ? t("पाठवत आहे…") : t("अर्ज पाठवा")} <ArrowRight size={16} /></button>
             </form>
           </section>
