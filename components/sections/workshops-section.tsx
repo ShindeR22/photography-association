@@ -2,7 +2,7 @@
 
 import { ArrowRight, ChevronLeft, ChevronRight, X } from "lucide-react";
 import { createPortal } from "react-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type FormEvent, type MouseEvent } from "react";
 import { photos } from "@/data/site-data";
 import { useLanguage } from "@/components/shared/language";
 import { ButtonLink, Photo } from "@/components/shared/ui";
@@ -13,6 +13,7 @@ type Workshop = {
   date: string;
   venue: string;
   registrationFee: number;
+  memberRegistrationFee: number;
   description: string;
   mentorName: string;
   time: string;
@@ -22,11 +23,28 @@ type Workshop = {
 
 const workshopsApiUrl =
   process.env.NEXT_PUBLIC_WORKSHOPS_API_URL ?? "http://localhost:3000/api/public/workshops";
+const publicApiBase = workshopsApiUrl.replace(/\/workshops\/?$/, "");
+
+type MemberDetails = {
+  memberNumber: string;
+  name: string;
+  phoneNumber: string;
+  studioName: string;
+  address: string;
+  profession: string;
+};
 
 function WorkshopCard({ workshop, t }: { workshop: Workshop; t: (value: string) => string }) {
   const images = workshop.imageUrls?.filter(Boolean) ?? [];
   const [activeImage, setActiveImage] = useState(0);
   const [detailsOpen, setDetailsOpen] = useState(false);
+  const [registrationOpen, setRegistrationOpen] = useState(false);
+  const [memberNumber, setMemberNumber] = useState("");
+  const [member, setMember] = useState<MemberDetails | null>(null);
+  const [lookupMessage, setLookupMessage] = useState("");
+  const [registrationMessage, setRegistrationMessage] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const fee = member ? workshop.memberRegistrationFee : workshop.registrationFee;
 
   useEffect(() => {
     if (images.length < 2) return;
@@ -37,9 +55,9 @@ function WorkshopCard({ workshop, t }: { workshop: Workshop; t: (value: string) 
   }, [images.length]);
 
   useEffect(() => {
-    if (!detailsOpen) return;
+    if (!detailsOpen && !registrationOpen) return;
     const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setDetailsOpen(false);
+      if (event.key === "Escape") { setDetailsOpen(false); setRegistrationOpen(false); }
     };
     document.addEventListener("keydown", closeOnEscape);
     document.body.style.overflow = "hidden";
@@ -47,7 +65,56 @@ function WorkshopCard({ workshop, t }: { workshop: Workshop; t: (value: string) 
       document.removeEventListener("keydown", closeOnEscape);
       document.body.style.overflow = "";
     };
-  }, [detailsOpen]);
+  }, [detailsOpen, registrationOpen]);
+
+  async function lookupMember(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setLookupMessage("");
+    setMember(null);
+    try {
+      const response = await fetch(`${publicApiBase}/members/lookup?memberNumber=${encodeURIComponent(memberNumber.trim())}`);
+      if (!response.ok) throw new Error(response.status === 404 ? "Active member not found. Complete the form as a non-member." : "Could not verify membership.");
+      setMember(await response.json() as MemberDetails);
+      setLookupMessage("Active membership verified. Member fee applied.");
+    } catch (error) {
+      setLookupMessage(error instanceof Error ? error.message : "Could not verify membership.");
+    }
+  }
+
+  async function submitRegistration(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setSubmitting(true);
+    setRegistrationMessage("");
+    const form = new FormData(event.currentTarget);
+    const payload = member
+      ? { workshopId: workshop.id, memberNumber: member.memberNumber }
+      : {
+          workshopId: workshop.id,
+          name: String(form.get("name") ?? ""),
+          phoneNumber: String(form.get("phoneNumber") ?? ""),
+          studioName: String(form.get("studioName") ?? ""),
+          address: String(form.get("address") ?? ""),
+          profession: String(form.get("profession") ?? ""),
+        };
+    try {
+      const response = await fetch(`${publicApiBase}/workshop-registrations`, {
+        method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload),
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data?.message ?? "Registration could not be completed.");
+      setRegistrationMessage(`Registration successful. Number: ${data.registration.registrationNumber}. Amount: ₹${data.fee}.`);
+    } catch (error) {
+      setRegistrationMessage(error instanceof Error ? error.message : "Registration could not be completed.");
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  function openRegistration(event: MouseEvent) {
+    event.stopPropagation();
+    setMember(null); setMemberNumber(""); setLookupMessage(""); setRegistrationMessage("");
+    setRegistrationOpen(true);
+  }
 
   const showPrevious = () => {
     setActiveImage((current) => (current - 1 + images.length) % images.length);
@@ -55,8 +122,6 @@ function WorkshopCard({ workshop, t }: { workshop: Workshop; t: (value: string) 
   const showNext = () => {
     setActiveImage((current) => (current + 1) % images.length);
   };
-  const registrationHref = `mailto:info@ippaindia.org?subject=${encodeURIComponent(`Workshop registration: ${workshop.title}`)}&body=${encodeURIComponent(`Hello,\n\nI would like to register for ${workshop.title}.\nDate: ${workshop.date}\nVenue: ${workshop.venue}\n\nMy name and phone number:\n`)}`;
-
   return (
     <article
       className="workshop-card"
@@ -117,13 +182,9 @@ function WorkshopCard({ workshop, t }: { workshop: Workshop; t: (value: string) 
         {` · ${workshop.time} · ${workshop.venue}`}
       </p>
       <p>{workshop.description}</p>
-      <a
-        className="button workshop-card-register"
-        href={registrationHref}
-        onClick={(event) => event.stopPropagation()}
-      >
+      <button className="button workshop-card-register" onClick={openRegistration} type="button">
         Register <ArrowRight size={14} />
-      </a>
+      </button>
       {detailsOpen && createPortal(
         <div className="workshop-dialog-backdrop" onClick={(event) => { event.stopPropagation(); setDetailsOpen(false); }}>
           <section
@@ -160,13 +221,41 @@ function WorkshopCard({ workshop, t }: { workshop: Workshop; t: (value: string) 
                 <div><dt>Venue</dt><dd>{workshop.venue}</dd></div>
                 <div><dt>Registration fee</dt><dd>₹{workshop.registrationFee}</dd></div>
               </dl>
-              <a className="button workshop-register" href={registrationHref}>
+              <button className="button workshop-register" onClick={(event) => { setDetailsOpen(false); openRegistration(event); }} type="button">
                 Register <ArrowRight size={16} />
-              </a>
+              </button>
             </div>
           </section>
         </div>,
         document.body,
+      )}
+      {registrationOpen && createPortal(
+        <div className="workshop-dialog-backdrop" onClick={() => setRegistrationOpen(false)}>
+          <section className="workshop-registration-dialog" role="dialog" aria-modal="true" aria-labelledby={`registration-title-${workshop.id}`} onClick={(event) => event.stopPropagation()}>
+            <button className="workshop-dialog-close" onClick={() => setRegistrationOpen(false)} aria-label="Close registration" type="button"><X size={20} /></button>
+            <h2 id={`registration-title-${workshop.id}`}>Workshop registration</h2>
+            <p>{workshop.title}</p>
+            <div className="workshop-registration-fee">Registration fee: <strong>₹{fee}</strong>{member && <span> · Member discount applied</span>}</div>
+            {registrationMessage ? <p role="status">{registrationMessage}</p> : <>
+              <form className="member-lookup-form" onSubmit={lookupMember}>
+                <label>Member number (optional)<input value={memberNumber} onChange={(event) => setMemberNumber(event.target.value)} placeholder="PCPA-123" /></label>
+                <button className="button" type="submit">Verify member</button>
+              </form>
+              {lookupMessage && <p role="status">{lookupMessage}</p>}
+              <form className="workshop-registration-form" onSubmit={submitRegistration}>
+                {!member && <>
+                  <label>Full name<input name="name" required /></label>
+                  <label>Phone number<input name="phoneNumber" type="tel" required /></label>
+                  <label>Studio / Farm name<input name="studioName" required /></label>
+                  <label>Address<textarea name="address" required rows={2} /></label>
+                  <label>Profession<input name="profession" required /></label>
+                </>}
+                {member && <p>Registering as {member.name} ({member.memberNumber}).</p>}
+                <button className="button workshop-register" disabled={submitting} type="submit">{submitting ? "Submitting…" : "Submit registration"}</button>
+              </form>
+            </>}
+          </section>
+        </div>, document.body,
       )}
     </article>
   );
