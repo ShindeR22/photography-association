@@ -23,7 +23,7 @@ type Workshop = {
 
 const workshopsApiUrl =
   process.env.NEXT_PUBLIC_WORKSHOPS_API_URL ??
-  "http://photography-admin-kohl.vercel.app/api/public/workshops";
+  "https://photography-admin-kohl.vercel.app/api/public/workshops";
 const publicApiBase = workshopsApiUrl.replace(/\/workshops\/?$/, "");
 
 type MemberDetails = {
