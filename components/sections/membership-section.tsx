@@ -124,7 +124,7 @@ export function MembershipSection() {
 
     try {
       const response = await fetch(
-        process.env.NEXT_PUBLIC_MEMBERS_API_URL || "http://localhost:3000/api/members",
+        process.env.NEXT_PUBLIC_MEMBERS_API_URL || "https://photography-admin-kohl.vercel.app/api/members",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
