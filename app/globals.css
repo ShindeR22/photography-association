@@ -557,14 +557,52 @@ textarea {
   border-radius: 12px;
   padding: 8px;
   overflow: hidden;
+  cursor: pointer;
 }
-.workshop-card > .photo {
+.workshop-images {
+  position: relative;
+}
+.workshop-images > .photo {
   height: 185px;
   border-radius: 8px;
 }
-.workshop-card:hover > .photo {
+.workshop-card:hover .workshop-images > .photo {
   transform: scale(1.025);
 }
+.workshop-image-arrow {
+  position: absolute;
+  top: 50%;
+  display: grid;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  color: #fff;
+  background: #16120eb8;
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+.workshop-image-arrow.previous { left: 8px; }
+.workshop-image-arrow.next { right: 8px; }
+.workshop-image-dots {
+  position: absolute;
+  bottom: 9px;
+  left: 50%;
+  display: flex;
+  gap: 5px;
+  transform: translateX(-50%);
+}
+.workshop-image-dots button {
+  width: 7px;
+  height: 7px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #ffffff91;
+  cursor: pointer;
+}
+.workshop-image-dots button.active { background: #fff; }
 .workshop-meta {
   display: flex;
   justify-content: space-between;
@@ -580,16 +618,127 @@ textarea {
   font-size: 14px;
   margin: 0 5px 8px;
 }
+.workshop-card .workshop-mentor {
+  margin-bottom: 8px;
+}
+.workshop-mentor strong {
+  color: var(--ink);
+  font-weight: 700;
+}
 .workshop-card p {
   font-size: 10px;
   color: var(--muted);
   margin: 0 5px 13px;
 }
-.workshop-card > a {
+.workshop-card-register {
+  width: calc(100% - 10px);
+  margin: 4px 5px 3px;
+  text-decoration: none;
+}
+.workshop-card-register:hover {
+  transform: none;
+  box-shadow: none;
+  background: #725310;
+}
+.workshop-dialog-backdrop {
+  position: fixed;
+  z-index: 2000;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: #17130fba;
+  cursor: default;
+}
+.workshop-dialog {
+  position: relative;
+  display: grid;
+  grid-template-columns: 0.95fr 1.05fr;
+  width: min(900px, 100%);
+  max-height: min(760px, 92vh);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--cream);
+  box-shadow: 0 24px 80px #0005;
+  cursor: default;
+}
+.workshop-dialog-image {
+  position: relative;
+  min-height: 420px;
+  background: #211b16;
+}
+.workshop-dialog-image > .photo {
+  width: 100%;
+  height: 100%;
+  min-height: 420px;
+}
+.workshop-dialog-image-count {
   position: absolute;
-  bottom: 17px;
-  right: 15px;
-  color: var(--gold);
+  right: 14px;
+  bottom: 14px;
+  padding: 5px 9px;
+  border-radius: 20px;
+  color: white;
+  background: #16120eb8;
+  font-size: 11px;
+}
+.workshop-dialog-content {
+  overflow-y: auto;
+  padding: 38px 36px 32px;
+}
+.workshop-dialog-content .workshop-meta {
+  margin: 0 0 12px;
+}
+.workshop-dialog-content h2 {
+  margin: 0 0 10px;
+  font-size: 27px;
+  line-height: 1.3;
+}
+.workshop-dialog-content p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+.workshop-dialog-content .workshop-dialog-mentor strong {
+  color: var(--ink);
+}
+.workshop-dialog-content dl {
+  display: grid;
+  gap: 12px;
+  margin: 22px 0;
+  padding: 18px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.workshop-dialog-content dl > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 12px;
+}
+.workshop-dialog-content dt { color: var(--muted); }
+.workshop-dialog-content dd { margin: 0; text-align: right; font-weight: 600; }
+.workshop-dialog-close {
+  position: absolute;
+  z-index: 2;
+  top: 12px;
+  right: 12px;
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  color: var(--ink);
+  background: var(--cream);
+  box-shadow: 0 2px 12px #0002;
+  cursor: pointer;
+}
+.workshop-register {
+  width: 100%;
+  justify-content: center;
+  text-decoration: none;
 }
 .gallery {
   background: #f6f2ed;
@@ -1083,6 +1232,27 @@ textarea {
   }
 }
 @media (max-width: 640px) {
+  .workshop-dialog-backdrop {
+    padding: 12px;
+  }
+  .workshop-dialog {
+    grid-template-columns: 1fr;
+    max-height: 94vh;
+    overflow-y: auto;
+  }
+  .workshop-dialog-image,
+  .workshop-dialog-image > .photo {
+    min-height: 230px;
+    height: 230px;
+  }
+  .workshop-dialog-content {
+    overflow: visible;
+    padding: 24px 22px;
+  }
+  .workshop-dialog-content h2 {
+    padding-right: 24px;
+    font-size: 22px;
+  }
   html {
     scroll-padding-top: 66px;
   }
@@ -1283,7 +1453,7 @@ textarea {
     min-height: 145px;
     padding: 7px 8px 7px 42%;
   }
-  .workshop-card > .photo {
+  .workshop-images > .photo {
     position: absolute;
     left: 7px;
     top: 7px;
@@ -1749,7 +1919,7 @@ textarea {
     padding: 6px;
     border-radius: 10px;
   }
-  .workshop-card > .photo {
+  .workshop-images > .photo {
     position: relative;
     inset: auto;
     grid-column: 1/-1;

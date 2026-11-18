@@ -7,7 +7,6 @@ export const photos = [
   "https://lh3.googleusercontent.com/aida-public/AB6AXuByEGcxG3t48eQkLV8KtcyYFSi_Slsc6efHUb5phh9XvQvSAw26IldXXYC8QiePVTy2d7zEtez63swxHWvy0YE5Dr3Fvh05fJyV1zwkRSQNmYny3k_nfmGHHtVQ3El0FYuWTUnvxlJIACyb8_7U92ddA35Ws15CqM15NGSOgMa9nzLliOJSRzHr9ETudM5JXMJ6b39OSJ1vFbIXDD3VJuO2fc0AnJe5gA6VwH6LuS2TGO9ahUbweO3GwA",
   "https://lh3.googleusercontent.com/aida-public/AB6AXuAHqGr-X1rcwW4n4t53lNed80H1h91PogseRQBE7dqQImlJXQdgLpgXXya1rMO2u8nUZqfX5UD0TmJvnKNvrlWavg2iF49aDgye0WG6Loao0b604PG71DP5GnmuhgbV704q5_3Wqp64NFwzLXs7TDwq1XDeYH1yywNXd6aZVwrvq_25mllsv3HuwvTGacyal6qaq9E8E5XFlOAJ5ILKKpU-wc28dXVDoLu502gDX08m1eAci2iI3aJpmA",
 ];
-
 export const team = [
   { name: "योगेश कावळी (योगी)", role: "अध्यक्ष", photo: "/team/yogesh-kawli.webp" },
   { name: "शिवा बायगुल", role: "संपादक", photo: "/team/shiva-baygul.webp" },
@@ -24,25 +23,4 @@ export const team = [
   { name: "जगन्नाथ भुसरे", role: "संस्थापक सदस्य", photo: "/team/jagannath-bhusare.webp" },
   { name: "महेंद्र बेंद्रे", role: "सल्लागार सदस्य", photo: "/team/mahendra-bendre.webp" },
   { name: "उमा भाटकर", role: "महिला सदस्य", photo: "/team/uma-bhatkar.webp" },
-];
-
-export const workshops = [
-  {
-    title: "प्रकाश आणि पोर्ट्रेटची भाषा",
-    type: "पोर्ट्रेट फोटोग्राफी",
-    date: "२६ ऑक्टोबर · पुणे",
-    image: photos[3],
-  },
-  {
-    title: "कॅमेऱ्याच्या पलीकडचं कथाकथन",
-    type: "डॉक्युमेंटरी",
-    date: "०२ नोव्हेंबर · मुंबई",
-    image: photos[4],
-  },
-  {
-    title: "स्टुडिओ लाईटिंग मास्टरक्लास",
-    type: "लाईटिंग",
-    date: "१६ नोव्हेंबर · नाशिक",
-    image: photos[2],
-  },
 ];
